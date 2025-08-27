@@ -23,8 +23,8 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 
 - \( I \): Original image  
 - \( W \): Chosen filter  
-- \( D \): Denoised image (\( D = I \ast W \))  
-- \( F \): Extracted fingerprint (\( F = I - D \))  
+- \( D \): Denoised image   
+- \( F \): Extracted fingerprint  
 - \( R \): Reference pattern computed from fingerprints \( F_i \) 
 
 
