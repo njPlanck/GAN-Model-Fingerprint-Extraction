@@ -142,8 +142,8 @@ output_folder = '/home/chinasa/python_projects/denoising/output/'
 try:
     # 1. Load and process images
     original_img = img_as_float(io.imread(input_path, as_gray=True))
-    denoised_img = nl_means_filter(original_img)
-    fingerprint_img_fft = extract_fingerprint(original_img, nl_means_filter)
+    denoised_img = bm3d_filter(original_img)
+    fingerprint_img_fft = extract_fingerprint(original_img, bm3d_filter)
     fingerprint_img = fingerprint_to_uint8(fingerprint_img_fft)
     
     # 2. Perform FFT transformations
