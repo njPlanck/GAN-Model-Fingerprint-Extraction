@@ -29,13 +29,13 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 
 ## Sampled Outputs From Each Filter in Spatial and Fourier Domain
 ###Original Image-----------------------------------Denoised Image--------------------------------Fingerprint
-Non-Local Means Filter
+- Non-Local Means Filter
 ![nlm](image.png)
-BM3D Filter
+- BM3D Filter
 ![bm3d](image-1.png)
-Wavelet Filter
+- Wavelet Filter
 ![wavelet](image-2.png)
-Sigma Filter
+- Sigma Filter
 ![sigma](image-3.png)
 
 
