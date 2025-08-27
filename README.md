@@ -6,4 +6,25 @@ For this project we would be looking at results from four filter namely; Non-Loc
 
 ## Method Overview
 * First, the input image is denoised with a selected filter.
-* Then the denoised image is subtracted from the original 
+* Then the denoised image is subtracted from the original to get the fingerprint.
+* The average of fingerprints from a particular GAN is then taken, to get the reference pattern or GAN fingerprint.
+* This reference pattern is then subtracted from the individual images from the same GAN.
+* Evaluation can be done, if this images can pass for real images.
+
+$$
+D = I * W
+
+F = I - D
+
+R = \bar{F}
+
+where;
+
+\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i
+
+I is the Original Image
+D is the Denoised Image
+F is the the extracted FIngerprint
+R is the reference pattern computed from F_is
+
+$$
