@@ -28,14 +28,14 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 - \( R \): Reference pattern computed from fingerprints \( F_i \) 
 
 ## Sampled Outputs From Each Filter in Spatial and Fourier Domain
-### Non-Local Means Filter
 Original Image-----------------------------------Denoised Image--------------------------------Fingerprint
+Non-Local Means Filter
 ![nlm](image.png)
-### BM3D Filter
+BM3D Filter
 ![bm3d](image-1.png)
-### Wavelet Filter
+Wavelet Filter
 ![wavelet](image-2.png)
-### Sigma Filter
+Sigma Filter
 ![sigma](image-3.png)
 
 
