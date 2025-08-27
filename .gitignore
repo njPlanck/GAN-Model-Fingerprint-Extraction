@@ -1,0 +1,6 @@
+venv/
+images/
+output/
+model_denoising.py
+model_training.py
+wavelet.py
