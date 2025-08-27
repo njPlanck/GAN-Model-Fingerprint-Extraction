@@ -5,6 +5,8 @@ from skimage import io, img_as_float, img_as_ubyte
 from skimage.restoration import denoise_nl_means, estimate_sigma
 from numba import njit
 import pywt
+import os
+from PIL import Image
 
 def nl_means_filter(img):
     if img.dtype != np.float32 and img.dtype != np.float64:
@@ -79,7 +81,7 @@ def extract_fingerprint(img, denoise_filter):
     return img - denoised  # raw fingerprint (float)
 
 
-#for robust visualization of the fingerprint
+#for robust visualization of the fingerprint and comparison
 def fingerprint_to_uint8(fp, method="robust", k=3.0):
     med = np.median(fp)
     mad = np.median(np.abs(fp - med)) + 1e-12
@@ -89,11 +91,96 @@ def fingerprint_to_uint8(fp, method="robust", k=3.0):
     vis = (fp_c + T) / (2 * T)
     return img_as_ubyte(vis)
 
+def fft_transform(img):
+    """Computes and returns the magnitude of the 2D FFT."""
+    img_float32 = np.float32(img)
+    f = np.fft.fft2(img_float32)
+    fshift = np.fft.fftshift(f)
+    magnitude_spectrum = 20 * np.log(np.abs(fshift) + 1e-8)
+    magnitude_spectrum = (magnitude_spectrum - np.min(magnitude_spectrum)) / (np.max(magnitude_spectrum) - np.min(magnitude_spectrum))
+    return magnitude_spectrum
 
 
+def create_and_save_grid(images, output_path, rows, cols, padding=10):
+    """
+    Creates a grid of images from a list of numpy arrays and saves it.
+    
+    This function requires Pillow to be installed.
+    """
+    if len(images) != rows * cols:
+        raise ValueError(f"Number of images ({len(images)}) does not match grid dimensions ({rows}x{cols}).")
+
+    img_height, img_width = images[0].shape
+    
+   # Calculate grid dimensions with padding
+    grid_width = cols * img_width + (cols - 1) * padding
+    grid_height = rows * img_height + (rows - 1) * padding
+    grid_image = Image.new('L', (grid_width, grid_height), color='white') 
+
+    for i, img_data in enumerate(images):
+        row = i // cols
+        col = i % cols
+        
+        # Calculate the paste coordinates with padding
+        paste_x = col * (img_width + padding)
+        paste_y = row * (img_height + padding)
+
+        # Convert numpy array to Pillow Image object
+        img_pil = Image.fromarray(np.uint8(img_data * 255))
+        
+        # Paste the image onto the grid
+        grid_image.paste(img_pil, (paste_x, paste_y))
+
+    grid_image.save(output_path)
+    print(f"Grid image with spacing saved to {output_path}")
+
+# --- Main Script ---
+# Define paths
+input_path = '/home/chinasa/python_projects/denoising/images/synthetic/plus/cycleGAN/all_rs/reference/001-PLUS-FV3-Laser_PALMAR_001_01_02_01.png'
+output_folder = '/home/chinasa/python_projects/denoising/output/'
+
+try:
+    # 1. Load and process images
+    original_img = img_as_float(io.imread(input_path, as_gray=True))
+    denoised_img = nl_means_filter(original_img)
+    fingerprint_img_fft = extract_fingerprint(original_img, nl_means_filter)
+    fingerprint_img = fingerprint_to_uint8(fingerprint_img_fft)
+    
+    # 2. Perform FFT transformations
+    fft_original = fft_transform(original_img)
+    fft_denoised = fft_transform(denoised_img)
+    fft_fingerprint = fft_transform(fingerprint_img_fft)
+    
+    # 3. Create a list of all images in the desired order
+    images_to_grid = [
+        original_img, denoised_img, fingerprint_img,
+        fft_original, fft_denoised, fft_fingerprint
+    ]
+
+    # 4. Create and save the grid
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+        
+    file_name = os.path.basename(input_path).split('.')[0]
+    grid_save_path = os.path.join(output_folder, f"{file_name}_grid.png")
+    
+    create_and_save_grid(images_to_grid, grid_save_path, rows=2, cols=3)
+
+except FileNotFoundError:
+    print(f"Error: The file at {input_path} was not found.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+
+
+
+'''
 img = img_as_float(io.imread('/home/chinasa/python_projects/denoising/images/synthetic/plus/cycleGAN/all_rs/reference/001-PLUS-FV3-Laser_PALMAR_001_01_02_01.png',as_gray=True))
 
+denoised_image = nl_means_filter(img)
 fingerprint = extract_fingerprint(img,nl_means_filter)
 fingerprint_vis = fingerprint_to_uint8(fingerprint)
+
+
 io.imsave("/home/chinasa/python_projects/denoising/output/fingerprint.png", fingerprint_vis)
 
+'''
