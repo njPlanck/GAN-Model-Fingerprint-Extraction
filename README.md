@@ -29,6 +29,6 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 
 ## Sampled Results From Each Filter in Spatial and Fourier Domain
 #### Non-Local Means Filter
-Original Image------------------------------Denoised Image---------------------------Fingerprint
+    Original Image---------------------------------Denoised Image------------------------------Fingerprint
 ![nlm](image.png)
 
