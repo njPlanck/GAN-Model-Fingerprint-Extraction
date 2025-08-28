@@ -71,14 +71,21 @@ def wavelet_filter(img, wavelet_level=3, sigma_est=None):
     return denoised_image
 
 #extract fingerprint function
+
 def extract_fingerprint(img, denoise_filter):
     '''
     This takes an image and filter as input.
     '''
     if img.dtype != np.float32 and img.dtype != np.float64:
         img = img_as_float(img)
+        
     denoised = denoise_filter(img)
-    return img - denoised  # raw fingerprint (float)
+    
+    # Check if the denoised image has a different shape and resize it.
+    if denoised.shape != img.shape:
+        denoised = cv2.resize(denoised, (img.shape[1], img.shape[0]), interpolation=cv2.INTER_LINEAR)
+        
+    return img - denoised # raw fingerprint (float)
 
 
 #for robust visualization of the fingerprint and comparison
@@ -136,24 +143,31 @@ def create_and_save_grid(images, output_path, rows, cols, padding=10):
 
 # --- Main Script ---
 # Define paths
-input_path = '/home/chinasa/python_projects/denoising/images/synthetic/plus/cycleGAN/all_rs/reference/001-PLUS-FV3-Laser_PALMAR_001_01_02_01.png'
+input_path = '/home/chinasa/python_projects/denoising/images/plus/synthetic/cycleGAN/001-PLUS-FV3-Laser_PALMAR_001_01_02_01.png'
 output_folder = '/home/chinasa/python_projects/denoising/output/'
 
 try:
     # 1. Load and process images
     original_img = img_as_float(io.imread(input_path, as_gray=True))
     denoised_img = sigma_filter(original_img)
-    fingerprint_img_fft = extract_fingerprint(original_img, sigma_filter)
-    fingerprint_img = fingerprint_to_uint8(fingerprint_img_fft)
+    
+    # Store the raw, float fingerprint separately
+    raw_fingerprint = extract_fingerprint(original_img, sigma_filter)
+    
+    # Create the uint8 visualization version of the fingerprint
+    vis_fingerprint = fingerprint_to_uint8(raw_fingerprint)
     
     # 2. Perform FFT transformations
     fft_original = fft_transform(original_img)
     fft_denoised = fft_transform(denoised_img)
-    fft_fingerprint = fft_transform(fingerprint_img_fft)
+    
+    # FFT must be on the raw floating-point fingerprint, not the uint8 version
+    fft_fingerprint = fft_transform(raw_fingerprint)
     
     # 3. Create a list of all images in the desired order
+    # Normalize the uint8 fingerprint back to [0,1] for create_and_save_grid
     images_to_grid = [
-        original_img, denoised_img, fingerprint_img,
+        original_img, denoised_img, vis_fingerprint / 255.0,
         fft_original, fft_denoised, fft_fingerprint
     ]
 
@@ -164,6 +178,7 @@ try:
     file_name = os.path.basename(input_path).split('.')[0]
     grid_save_path = os.path.join(output_folder, f"{file_name}_grid.png")
     
+    # Call the grid function with the corrected image list
     create_and_save_grid(images_to_grid, grid_save_path, rows=2, cols=3)
 
 except FileNotFoundError:
@@ -173,14 +188,3 @@ except Exception as e:
 
 
 
-'''
-img = img_as_float(io.imread('/home/chinasa/python_projects/denoising/images/synthetic/plus/cycleGAN/all_rs/reference/001-PLUS-FV3-Laser_PALMAR_001_01_02_01.png',as_gray=True))
-
-denoised_image = nl_means_filter(img)
-fingerprint = extract_fingerprint(img,nl_means_filter)
-fingerprint_vis = fingerprint_to_uint8(fingerprint)
-
-
-io.imsave("/home/chinasa/python_projects/denoising/output/fingerprint.png", fingerprint_vis)
-
-'''
