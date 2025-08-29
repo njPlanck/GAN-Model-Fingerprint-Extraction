@@ -70,7 +70,7 @@ def load_images_from_folder(folder_path):
     return images, filenames
 
 
-def save_fingerprint_removed_images(images, filenames, avg_fingerprint, out_folder, filter_name):
+def save_fingerprint_removed_images(images, filenames, avg_fingerprint, strength=1, out_folder, filter_name):
     """
     Subtracts the average fingerprint from each image and saves the resulting
     "clean" images with proper conversion for visualization.
@@ -79,7 +79,7 @@ def save_fingerprint_removed_images(images, filenames, avg_fingerprint, out_fold
 
     for img, fname in zip(images, filenames):
         # 1. Subtract the average fingerprint to get the clean image
-        clean_img = img - avg_fingerprint
+        clean_img = img - (strength * avg_fingerprint)
         
         # 2. Clip the values to a valid range to prevent out-of-bounds issues
         # and then convert to 8-bit integer.

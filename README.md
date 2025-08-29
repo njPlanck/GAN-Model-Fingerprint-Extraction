@@ -38,6 +38,14 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 - Sigma Filter
 ![sigma](image-3.png)
 
+Once the reference patterns for each GAN has been computed, we proceed to manipulate the images from the same GAN with it by subtracting it from them.
+
+$C = I - s * R$
+where;
+- \( C \): Cleaned image
+- \( s \): Strength parameter  
+
+
 
 
 
