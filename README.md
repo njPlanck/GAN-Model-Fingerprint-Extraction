@@ -25,7 +25,7 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 - \( W \): Chosen filter or denoising Function 
 - \( D \): Denoised image   
 - \( F \): Extracted fingerprint  
-- \( R \): Reference pattern computed from fingerprints $F_i$s
+- \( R \): Reference pattern computed from fingerprints Fi_s
 
 ## Sampled Outputs From Each Filter in Spatial and Fourier Domain
 |         Original Image       |      |       Denoised Image      |     |     Fingerprint      |
