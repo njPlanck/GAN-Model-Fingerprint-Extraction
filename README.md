@@ -43,8 +43,21 @@ $C = I - s * R$
 
 where;
 - \( C \): Cleaned image
-- \( s \): Strength parameter  
+- \( s \): Strength parameter 
 
+## Sampled Cleaned Image From Each FIlter
+
+#### NLM Filter with SSIM 0.9969
+![nlmcleaned](image-4.png)
+#### BM3D Filter with SSIM 0.9969
+![bm3dcleaned](image-5.png)
+#### Sigmma Filter with SSIM 0.9915
+![sigmacleaned](image-6.png)
+#### Wavelet Filter with SSIM 0.9914
+![waveletcleaned](image-7.png)
+
+## Observation
+While we noticed the denoising could extract the pattern noise, especially that wavelet filter. The reference pattern noise computed from the average of these extracted fingerprints did not seem to show much effect when used for cleaning. We know that the more fingerprints that are used to compute the reference pattern, the additive noise component seem to vanish. But we suspect the pattern left afterwards may need some adaptive scaling to effective suppress these pattern noises during clearning.
 
 
 

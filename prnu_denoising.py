@@ -70,7 +70,7 @@ def load_images_from_folder(folder_path):
     return images, filenames
 
 
-def save_fingerprint_removed_images(images, filenames, avg_fingerprint, strength=1, out_folder, filter_name):
+def save_fingerprint_removed_images(images, filenames, avg_fingerprint, out_folder, filter_name, strength=1):
     """
     Subtracts the average fingerprint from each image and saves the resulting
     "clean" images with proper conversion for visualization.
@@ -133,8 +133,8 @@ def build_and_apply_fingerprints(root_folder, output_folder):
 
 # --- Corrected Main Script ---
 # Define paths
-root_folder = '/home/chinasa/python_projects/denoising/images/idiap/synthetic'
-output_folder = '/home/chinasa/python_projects/denoising/output/cleaned_idiap'
+root_folder = '/home/chinasa/python_projects/denoising/images/plus/synthetic'
+output_folder = '/home/chinasa/python_projects/denoising/output/cleaned_plus'
 
 try:
     # This is the corrected part.
