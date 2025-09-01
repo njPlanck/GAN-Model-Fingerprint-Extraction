@@ -57,7 +57,7 @@ where;
 ![waveletcleaned](disp_imgs/image-7.png)
 
 ## Observation
-While we noticed the denoising could extract the pattern noise, especially that wavelet filter. The reference pattern noise computed from the average of these extracted fingerprints did not seem to show much effect when used for cleaning. We know that the more fingerprints that are used to compute the reference pattern, the additive noise component seem to vanish. But we suspect the pattern left afterwards may need some adaptive scaling to effective suppress these pattern noises during clearning.
+We noticed the denoising filters could suppress the pattern noise, especially with the wavelet filter. But the reference pattern noise computed from the average of these extracted fingerprints did not seem to show much effect when used for cleaning. This is even so after it was scaled. It is already known that the more fingerprints that are used to compute the reference pattern, the more additive noise component seem to vanish. So we suspect the pattern left afterwards may too small to make any noticeable effect. We may need to try some adaptive scaling to effectively increase the impact this reference pattern may have on the pattern noises during clearning.
 
 
 
