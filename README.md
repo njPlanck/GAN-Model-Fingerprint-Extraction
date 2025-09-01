@@ -29,13 +29,13 @@ $\bar{F} = \frac{1}{n}\sum_{i=1}^n F_i$
 ## Sampled Outputs From Each Filter in Spatial and Fourier Domain
 |         Original Image       ||       Denoised Image      ||     Fingerprint      |
 - Non-Local Means Filter
-![nlm](image.png)
+![nlm](disp_imgs/image.png)
 - BM3D Filter
-![bm3d](image-1.png)
+![bm3d](disp_imgs/image-1.png)
 - Wavelet Filter
-![wavelet](image-2.png)
+![wavelet](disp_imgs/image-2.png)
 - Sigma Filter
-![sigma](image-3.png)
+![sigma](disp_imgs/image-3.png)
 
 Once the reference patterns for each GAN has been computed, we proceed to manipulate the images from the same GAN with it by subtracting it from them.
 
@@ -48,13 +48,13 @@ where;
 ## Sampled Cleaned Image From Each FIlter
 
 #### NLM Filter with SSIM 0.9969
-![nlmcleaned](image-4.png)
+![nlmcleaned](disp_imgs/image-4.png)
 #### BM3D Filter with SSIM 0.9969
-![bm3dcleaned](image-5.png)
+![bm3dcleaned](disp_imgs/image-5.png)
 #### Sigmma Filter with SSIM 0.9915
-![sigmacleaned](image-6.png)
+![sigmacleaned](disp_imgs/image-6.png)
 #### Wavelet Filter with SSIM 0.9914
-![waveletcleaned](image-7.png)
+![waveletcleaned](disp_imgs/image-7.png)
 
 ## Observation
 While we noticed the denoising could extract the pattern noise, especially that wavelet filter. The reference pattern noise computed from the average of these extracted fingerprints did not seem to show much effect when used for cleaning. We know that the more fingerprints that are used to compute the reference pattern, the additive noise component seem to vanish. But we suspect the pattern left afterwards may need some adaptive scaling to effective suppress these pattern noises during clearning.
