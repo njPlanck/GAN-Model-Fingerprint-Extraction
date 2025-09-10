@@ -2,12 +2,12 @@ import os
 import cv2
 import argparse
 import numpy as np
-from filters import nl_means_filter, bm3d_filter, sigma_filter, wavelet_filter, extract_fingerprint, fingerprint_to_uint8
+from filters import nl_means_filter, bm3d_filter, sigma_filter, wavelet_filter
 from prnu_cleaning import load_images_from_folder
 from skimage import io, img_as_float, img_as_ubyte
 
 
-def save_denoised_images(images, filenames, denoised_img, out_folder, filter_name, original_filename):
+def save_images(images, filenames, denoised_img, out_folder, filter_name, original_filename):
     """
     Saves the denoised image with proper conversion for visualization.
     """
@@ -24,7 +24,7 @@ def save_denoised_images(images, filenames, denoised_img, out_folder, filter_nam
 
     # Save using OpenCV
     cv2.imwrite(save_path, denoised_img_8bit)
-    print(f"[INFO] Saved denoised image: {save_path}")
+    # print(f"[INFO] Saved denoised image: {save_path}")
 
 
 def process_images_with_denoisers(root_folder, output_folder):
@@ -54,7 +54,7 @@ def process_images_with_denoisers(root_folder, output_folder):
                     for img, fname in zip(images, filenames):
                         denoised_img = denoise_filter_func(img) 
                         
-                        save_denoised_images(images, filenames, denoised_img, filter_out_folder, filter_name, fname)
+                        save_images(images, filenames, denoised_img, filter_out_folder, filter_name, fname)
 
                 print(f"[INFO] All processing for {gan_model} complete.")
             else:
@@ -63,8 +63,8 @@ def process_images_with_denoisers(root_folder, output_folder):
 
 # --- Main Script ---
 # Define paths
-root_folder = '/home/chinasa/python_projects/denoising/images/plus/synthetic'
-output_folder = '/home/chinasa/python_projects/denoising/output/denoised_plus' # Changed output folder name for clarity
+root_folder = '/home/chinasa/python_projects/denoising/images/scut/synthetic'
+output_folder = '/home/chinasa/python_projects/denoising/output/denoised_scut' # Changed output folder name for clarity
 
 try:
     process_images_with_denoisers(root_folder, output_folder)

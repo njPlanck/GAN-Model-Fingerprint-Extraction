@@ -133,14 +133,14 @@ def build_and_apply_fingerprints(root_folder, output_folder):
 
 # --- Corrected Main Script ---
 # Define paths
-root_folder = '/home/chinasa/python_projects/denoising/images/plus/synthetic'
-output_folder = '/home/chinasa/python_projects/denoising/output/cleaned_plus'
 
-try:
-    # This is the corrected part.
-    # Call the build_and_apply_fingerprints function directly
-    # with the appropriate input and output folders.
-    build_and_apply_fingerprints(root_folder, output_folder)
-
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
+if __name__ == "__main__":
+    root_folder = '/home/chinasa/python_projects/denoising/images/plus/synthetic'
+    output_folder = '/home/chinasa/python_projects/denoising/output/cleaned_plus'
+    try:
+        # This is the corrected part.
+        # Call the build_and_apply_fingerprints function directly
+        # with the appropriate input and output folders.
+        build_and_apply_fingerprints(root_folder, output_folder)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
