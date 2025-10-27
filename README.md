@@ -56,12 +56,16 @@ where;
 #### Wavelet Filter with SSIM 0.9914
 ![waveletcleaned](disp_imgs/image-7.png)
 
+For our project, we would be observing the outputs of the denoised images and the cleaned images. And the reason for this is quite simple. With the denoising technique(by applying selected filters to the images), we do not have to know the particular GAN the images could be originating from to be able to attack the images.
+
+On the other hand, the removal technique by subtracting the PRNU pattern leverages our knowledge of the various pattern noise unigue to each GAN to get a good approximate of the GAN model fingerprint. In other words, it is a rather on "one size fit all" technique.
+
 ## Observation
-The denoising filters, particularly the wavelet filter, effectively suppress the pattern noise. This suggests that the noise is captured well within the extracted "fingerprints" (the difference between the original and denoised images).
+The denoising filters, particularly the wavelet filter, effectively suppress the pattern noise. This suggests that the noise is captured well within the extracted "fingerprints" (the difference between the original and denoised images). 
 
 However, a fixed reference pattern computed by averaging these fingerprints fails to completely remove the noise when subtracted from the original images. The issue is likely that the residual pattern is too subtle to be removed by a simple, one-size-fits-all subtraction.
 
-To improve the cleaning process, a more effective strategy is to implement adaptive scaling. This could provide a close approximation of the reference pattern on a per-image basis to match the unique intensity of the noise in each image. But there is an immediate limitation with this process. The filtering only targets the noisy patterns of high frequencies while the low frequency component of these fingerprints are barely ectracted. This was observed when the filtered images were tested with the PAD system we deisgned <a href="https://github.com/njPlanck/Presentation-Attack-Detection-System.git">here</a>.
+To improve the cleaning process, a more effective strategy is to implement adaptive scaling. This could provide a close approximation of the reference pattern on a per-image basis to match the unique intensity of the noise in each image. But there is an immediate limitation with this process. The filtering only targets the noisy patterns of high frequencies while the low frequency component of these fingerprints are barely ectracted. This was confirmed using the denoised images were tested with the PAD system we deisgned <a href="https://github.com/njPlanck/Presentation-Attack-Detection-System.git">here</a>.
 
 ### The Average Classification Error Rate (ACER) from the fourier features within the first 0-10 bands with the SCUT dataset as can be found <a href="https://www.cosy.sbg.ac.at/~uhl/bva.html">here</a>.
 ![0-10 band](disp_imgs/plot.png)
