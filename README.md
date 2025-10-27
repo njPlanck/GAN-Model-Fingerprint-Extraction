@@ -70,11 +70,4 @@ To improve the cleaning process, a more effective strategy is to implement adapt
 ### The Average Classification Error Rate (ACER) from the fourier features within the first 0-10 bands with the SCUT dataset as can be found <a href="https://www.cosy.sbg.ac.at/~uhl/bva.html">here</a>.
 ![0-10 band](disp_imgs/plot.png)
 
-### The Average Classification Error Rate (ACER) from the fourier features within the first 10-20 bands
-
-![10-20](disp_imgs/plot1.png)
-
-### The Average Classification Error Rate (ACER) from the fourier features within the first 20-30 bands
-![20-30](disp_imgs/plot2.png)
-
 So we can imediately see that even though the this process was not effective for the dataset it was applied with. And while a more agressive technique could work, it would defeat the fundamental objective, which is to remove these artifacts without altering the visual fidelity of the images.
