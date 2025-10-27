@@ -61,8 +61,16 @@ The denoising filters, particularly the wavelet filter, effectively suppress the
 
 However, a fixed reference pattern computed by averaging these fingerprints fails to completely remove the noise when subtracted from the original images. The issue is likely that the residual pattern is too subtle to be removed by a simple, one-size-fits-all subtraction.
 
-To improve the cleaning process, a more effective strategy is to implement adaptive scaling. This could provide a close approximation of the reference pattern on a per-image basis to match the unique intensity of the noise in each image. But we are yet to test this. But we suspect it could ensure a more complete and accurate removal of the pattern, leading to a cleaner final result.
+To improve the cleaning process, a more effective strategy is to implement adaptive scaling. This could provide a close approximation of the reference pattern on a per-image basis to match the unique intensity of the noise in each image. But there is an immediate limitation with this process. The filtering only targets the noisy patterns of high frequencies while the low frequency component of these fingerprints are barely ectracted. This was observed when the filtered images were tested with the PAD system we deisgned <a href="https://github.com/njPlanck/Presentation-Attack-Detection-System.git">here</a>.
 
+### The Average Classification Error Rate (ACER) from the fourier features within the first 0-10 bands with the SCUT dataset as can be found <a href="https://www.cosy.sbg.ac.at/~uhl/bva.html">here</a>.
+![0-10 band](image.png)
 
+### The Average Classification Error Rate (ACER) from the fourier features within the first 10-20 bands
 
+![10-20](image-1.png)
 
+### The Average Classification Error Rate (ACER) from the fourier features within the first 10-20 bands
+![20-30](image-2.png)
+
+So we can imediately see that even though the this process was not effective for the dataset it was applied with. And while a more agressive technique could work, it would defeat the fundamental objective, which is to remove these artifacts without altering the visual fidelity of the images.

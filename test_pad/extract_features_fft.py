@@ -49,7 +49,7 @@ def load_images_and_extract_features(file_paths, label, num_bands=30, slice_rang
 if __name__ == "__main__":
     real_folder = glob.glob(r'images/scut/genuine/**/*.bmp', recursive=True)
     fake_folder = glob.glob(r'images/scut/spoofed/**/*.bmp', recursive=True)
-    synthetic_folder = glob.glob(r'output/denoised_scut/cycleGAN/sigma/*.png',recursive=True)  # Adjust path
+    synthetic_folder = glob.glob(r'output/denoised_scut/starGAN/nlm/*.png',recursive=True)  # Adjust path
 
     data_real = load_images_and_extract_features(real_folder, label=1)
     data_fake = load_images_and_extract_features(fake_folder, label=0)
@@ -65,15 +65,15 @@ if __name__ == "__main__":
     print("First few rows:\n", df.head())
 
     df_subset1 = df[["label"] + [f"feature_{i}" for i in range(30)]]
-    df_subset1.to_csv("output_csvs/scut/sigma/cycle_features_01_30.csv", index=False)
+    df_subset1.to_csv("output_csvs/scut/nlm/star_features_01_30.csv", index=False)
 
     df_subset2 = df[["label"] + [f"feature_{i}" for i in range(10)]]
-    df_subset2.to_csv("output_csvs/scut/sigma/cycle_features_01_10.csv", index=False)
+    df_subset2.to_csv("output_csvs/scut/nlm/star_features_01_10.csv", index=False)
 
     df_subset3 = df[["label"] + [f"feature_{i}" for i in range(10, 20)]]
-    df_subset3.to_csv("output_csvs/scut/sigma/cycle_features_11_20.csv", index=False)
+    df_subset3.to_csv("output_csvs/scut/nlm/star_features_11_20.csv", index=False)
 
     df_subset4 = df[["label"] + [f"feature_{i}" for i in range(20, 30)]]
-    df_subset4.to_csv("output_csvs/scut/sigma/cycle_features_21_30.csv", index=False)
+    df_subset4.to_csv("output_csvs/scut/nlm/star_features_21_30.csv", index=False)
 
     print("Feature extraction and export completed.")

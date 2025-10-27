@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import VarianceThreshold
 
 # Load and prepare data 
-df = pd.read_csv("output_csvs/scut/wavelet/star_features_21_30.csv")
+df = pd.read_csv("output_csvs/scut/bm3d/star_features_21_30.csv")
 
 # Ensure 'label' column exists and contains expected values
 if 'label' not in df.columns:

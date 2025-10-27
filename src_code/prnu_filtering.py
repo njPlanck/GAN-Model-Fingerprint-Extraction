@@ -63,8 +63,8 @@ def process_images_with_denoisers(root_folder, output_folder):
 
 # --- Main Script ---
 # Define paths
-root_folder = '/home/chinasa/python_projects/denoising/images/scut/synthetic'
-output_folder = '/home/chinasa/python_projects/denoising/output/denoised_scut' # Changed output folder name for clarity
+root_folder = '/home/chinasa/python_projects/denoising/images/idiap/synthetic'
+output_folder = '/home/chinasa/python_projects/denoising/output/denoised_idiap' # Changed output folder name for clarity
 
 try:
     process_images_with_denoisers(root_folder, output_folder)
